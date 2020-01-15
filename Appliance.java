@@ -5,18 +5,22 @@ public class Appliance {
     private long serialNum;
     private double price;
 
-
     /**
     * Default Appliance constructor
     */
     public Appliance(String type, String brand, long serialNum, double price) {
-        super();
-        this.type = type;
-        this.brand = brand;
-        this.serialNum = serialNum;
-        this.price = price;
+        setType(type);
+        setBrand(brand);
+        setSerialNum(serialNum);
+        setPrice(price);
     }
 
+    /**
+    * Default empty Appliance constructor
+    */
+    public Appliance() {
+        
+    }
 
     /**
     * Returns value of type
@@ -82,11 +86,21 @@ public class Appliance {
         this.price = price;
     }
 
-    /**
-    * Default empty Appliance constructor
-    */
-    public Appliance() {
-        super();
+    public boolean equals(Appliance a) {
+        return (type == a.type && brand == a.brand && price == a.price);
     }
+
+    public int findNumberOfCreatedAppliances() {
+        return 0;
+    }
+
+	/**
+	* Create string representation of Appliance for printing
+	* @return
+	*/
+	@Override
+	public String toString() {
+		return "Appliance [type=" + type + ", brand=" + brand + ", serialNum=" + serialNum + ", price=" + price + "]";
+	}
 
 }
