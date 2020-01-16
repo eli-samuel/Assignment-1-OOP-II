@@ -23,34 +23,56 @@ public class Assignment1 {
             option = displayMenu(input, option);
         } while (option < 1 || option > 5);
 
-        int i = 0;
+        int counter = 0;
         while (true) {
             if (option == 1) {
-                while (!passwordChecker(input, userPass, PASSWORD) && i<4) {
-                    i++;
-                    if (i == 4) {
+                if (!passwordChecker(input, userPass, PASSWORD) && counter<4) {
+                    counter++;
+                    if (counter == 4) {
                         System.out.println("\nProgram detected suspicious activities and will terminate immediately!");
                         System.exit(0);
                     }
                     option = displayMenu(input, option);
-                    break;
+                    continue;
                 }
+
+                counter=0;
+                System.out.print("Enter number of appliances to add: ");
+                int numAppliances = input.nextInt();
+
+                if (numAppliances > inventory.length) {
+                    System.out.println("\nThere is not enough room in the inventory (" + inventory.length + " place(s) remain)."
+                    + " Adding " + inventory.length + " appliances.");
+                    numAppliances = inventory.length;
+                    System.out.println(numAppliances);
+                }
+
+                inventory = applianceAdder(inventory, numAppliances, input);
+
+                break;
+
             }
             else if (option == 2) {
-                while (!passwordChecker(input, userPass, PASSWORD)) {
+                if (!passwordChecker(input, userPass, PASSWORD)) {
                     option = displayMenu(input, option);
-                    break;
+                    continue;
                 }
+
+                System.out.print("Input the serial number of the item you would like to change: ");
+                long serialNum = input.nextLong();
+
+                break;
             }
             else if (option == 3) {
                 System.out.print("Enter a brand name: ");
-                String name = input.next();
+                String brand = input.next();
+                findAppliancesBy(brand, inventory);
             }
             else if (option == 4) {
                 System.out.print("Enter a price: ");
                 double price = input.nextDouble();
 
-                findCheaperThan(price);
+                findCheaperThan(price, inventory);
             }
             else { // option == 5
                 System.out.println("\nThanks for using the program!\n");
@@ -74,23 +96,45 @@ public class Assignment1 {
 
     public static int displayMenu(Scanner input, int option) {
         System.out.print("\nWhat do you want to do?\n\t1.\tEnter new appliances (password required)"
-                        + "\n\t2.\tChange information of an appliance (password required)"
-                        + "\n\t3.\tDisplay all appliances by a specific brand"
-                        + "\n\t4.\tDisplay all appliances under a certain price"
-                        + "\n\t5.\tQuit\nPlease enter your choice: ");
+        + "\n\t2.\tChange information of an appliance (password required)"
+        + "\n\t3.\tDisplay all appliances by a specific brand"
+        + "\n\t4.\tDisplay all appliances under a certain price"
+        + "\n\t5.\tQuit\nPlease enter your choice: ");
         option = input.nextInt();
         System.out.println();
 
         return option;
     }
 
-    public static void findCheaperThan(double price) {
-        System.out.println(new Appliance());
-        //return {new Appliance()};
+    public static void findCheaperThan(double price, Appliance[] inventory) {
+        for (int i=0; i<inventory.length(); i++) {
+            if (inventory[i].getPrice < price) System.out.println(inventory[i]);
+        }
     }
 
-    public static void findAppliancesBy(String brand) {
-        //return {new Appliance()};
+    public static void findAppliancesBy(String brand, Appliance[] inventory) {
+        for (int i=0; i<inventory.length(); i++) {
+            if (inventory[i].getBrand.toLowerCase().equals(brand.toLowerCase())) System.out.println(inventory[i]);
+        }
+    }
+
+    public static Appliance[] applianceAdder(Appliance[] inventory, int numAppliances, Scanner input) {
+        for (int i=0; i<numAppliances; i++) {
+            // System.out.print("Enter type: ");
+            // String type = input.nextLine();
+            // System.out.print("Enter brand: ");
+            // String brand = input.nextLine();
+            // System.out.print("Enter serial number: ");
+            // long serialNum = input.nextLong();
+            // System.out.print("Enter price: ");
+            // double price = input.nextDouble();
+            System.out.println("Enter type, brand, serial number, and price (separated by a newline).");
+            String extra = input.nextLine();
+            inventory[i] = new Appliance(input.nextLine(), input.nextLine(), input.nextLong(), input.nextDouble());
+            System.out.println(inventory[i]);
+        }
+
+        return inventory;
     }
 
 }

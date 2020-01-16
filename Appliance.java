@@ -19,7 +19,7 @@ public class Appliance {
     * Default empty Appliance constructor
     */
     public Appliance() {
-        
+
     }
 
     /**
@@ -59,7 +59,11 @@ public class Appliance {
     * @param
     */
     public void setType(String type) {
-        this.type = type;
+        type = type.toLowerCase();
+        if (type.equals("fridge") || type.equals("air conditioner") || type.equals("washer")
+            || type.equals("dryer") || type.equals("freezer") || type.equals("stove")
+            || type.equals("dishwasher") || type.equals("water heater") || type.equals("microwave"))
+            this.type = type;
     }
 
     /**
@@ -67,7 +71,7 @@ public class Appliance {
     * @param
     */
     public void setBrand(String brand) {
-        this.brand = brand;
+        if (brand.length() > 0) this.brand = brand;
     }
 
     /**
@@ -83,7 +87,7 @@ public class Appliance {
     * @param
     */
     public void setPrice(double price) {
-        this.price = price;
+        if (price > 0) this.price = price;
     }
 
     public boolean equals(Appliance a) {
