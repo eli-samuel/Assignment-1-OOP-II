@@ -49,8 +49,7 @@ public class Assignment1 {
 
                 inventory = applianceAdder(inventory, numAppliances, input);
 
-                break;
-
+                option = displayMenu(input, option);
             }
             else if (option == 2) {
                 if (!passwordChecker(input, userPass, PASSWORD)) {
@@ -60,6 +59,39 @@ public class Assignment1 {
 
                 System.out.print("Input the serial number of the item you would like to change: ");
                 long serialNum = input.nextLong();
+
+                int item = 0;
+                for (item=0; item<inventory.length; item++) {
+                    if (inventory[item].getSerialNum == serialNum) break;
+                }
+
+                printAppliance(inventory[item]);
+
+                int choice = 0;
+
+                do {
+                    do {
+                        System.out.print("\nWhat information would you like to change?"
+                                        + "\n\t1. Brand\n\t2. Type\n\t3. Price\n\t4. Quit\nEnter your choice: ");
+                        choice = input.nextInt();
+                    } while (choice > 4 && choice < 1);
+
+                    if (choice == 1) {
+                        System.out.print("Enter new brand: ");
+                        inventory[item].setBrand(input.next());
+                        printAppliance(inventory[item]);
+                    }
+                    else if (choice == 2) {
+                        System.out.print("Enter new type: ");
+                        inventory[item].setType(input.next());
+                        printAppliance(inventory[item]);
+                    }
+                    else if (choice == 3) {
+                        System.out.print("Enter new price: ");
+                        inventory[item].setPrice(input.nextDouble());
+                        printAppliance(inventory[item]);
+                    }
+                } while (choice != 4);
 
                 break;
             }
@@ -131,10 +163,16 @@ public class Assignment1 {
             System.out.println("Enter type, brand, serial number, and price (separated by a newline).");
             String extra = input.nextLine();
             inventory[i] = new Appliance(input.nextLine(), input.nextLine(), input.nextLong(), input.nextDouble());
-            System.out.println(inventory[i]);
+            System.out.println("Added: " + inventory[i]);
         }
 
         return inventory;
     }
+
+    public static void printAppliance(Appliance a)
+        System.out.println("\nAppliance Serial #: " + a.getSerialNum()
+                        + "\nBrand: " + a.getBrand()
+                        + "\nType: " + a.getType()
+                        + "\nPrice: " + a.getPrice());
 
 }
