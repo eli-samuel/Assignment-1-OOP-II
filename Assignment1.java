@@ -139,13 +139,13 @@ public class Assignment1 {
     }
 
     public static void findCheaperThan(double price, Appliance[] inventory) {
-        for (int i=0; i<inventory.length(); i++) {
-            if (inventory[i].getPrice < price) System.out.println(inventory[i]);
+        for (int i=0; i<inventory.length; i++) {
+            if (inventory[i].getPrice() < price) System.out.println(inventory[i]);
         }
     }
 
     public static void findAppliancesBy(String brand, Appliance[] inventory) {
-        for (int i=0; i<inventory.length(); i++) {
+        for (int i=0; i<inventory.length; i++) {
             if (inventory[i].getBrand.toLowerCase().equals(brand.toLowerCase())) System.out.println(inventory[i]);
         }
     }
@@ -169,10 +169,10 @@ public class Assignment1 {
         return inventory;
     }
 
-    public static void printAppliance(Appliance a)
+    public static void printAppliance(Appliance a) {
         System.out.println("\nAppliance Serial #: " + a.getSerialNum()
                         + "\nBrand: " + a.getBrand()
                         + "\nType: " + a.getType()
                         + "\nPrice: " + a.getPrice());
-
+    }
 }
