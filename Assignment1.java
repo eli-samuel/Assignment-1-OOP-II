@@ -62,7 +62,7 @@ public class Assignment1 {
 
                 int item = 0;
                 for (item=0; item<inventory.length; item++) {
-                    if (inventory[item].getSerialNum == serialNum) break;
+                    if (inventory[item].getSerialNum() == serialNum) break;
                 }
 
                 printAppliance(inventory[item]);
@@ -140,13 +140,13 @@ public class Assignment1 {
 
     public static void findCheaperThan(double price, Appliance[] inventory) {
         for (int i=0; i<inventory.length; i++) {
-            if (inventory[i].getPrice() < price) System.out.println(inventory[i]);
+            if (inventory[i].getPrice() < price && inventory[i].getType() != null) System.out.println(inventory[i]);
         }
     }
 
     public static void findAppliancesBy(String brand, Appliance[] inventory) {
         for (int i=0; i<inventory.length; i++) {
-            if (inventory[i].getBrand.toLowerCase().equals(brand.toLowerCase())) System.out.println(inventory[i]);
+            if (inventory[i].getBrand().toLowerCase().equals(brand.toLowerCase())) System.out.println(inventory[i]);
         }
     }
 
