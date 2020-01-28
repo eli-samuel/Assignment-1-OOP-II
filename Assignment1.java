@@ -8,11 +8,12 @@ import java.util.Scanner;
 public class Assignment1 {
 
     public static void main(String[] args) {
-
+        //initializing variables
         Scanner input = new Scanner(System.in);
         int maxAppliances = 0;
         int option = 0;
         Appliance[] inventory;
+        //setting Password and variable for users password input
         final String PASSWORD = "c249";
         String userPass = "";
 
@@ -21,7 +22,7 @@ public class Assignment1 {
         System.out.print("Enter the max appliances: ");
         maxAppliances = input.nextInt();
         System.out.println();
-
+        
         inventory = new Appliance[maxAppliances];
 
         do {
