@@ -1,13 +1,19 @@
+//Eli Samuel (ID) and David Roper(40131739)
+//COMP 249
+//Assignment 1
+//January 31st 2020
+
 import java.util.Scanner;
 
 public class Assignment1 {
 
     public static void main(String[] args) {
-
+        //initializing variables
         Scanner input = new Scanner(System.in);
         int maxAppliances = 0;
         int option = 0;
         Appliance[] inventory;
+        //setting Password and variable for users password input
         final String PASSWORD = "c249";
         String userPass = "";
 
@@ -16,7 +22,7 @@ public class Assignment1 {
         System.out.print("Enter the max appliances: ");
         maxAppliances = input.nextInt();
         System.out.println();
-
+        
         inventory = new Appliance[maxAppliances];
 
         do {
@@ -62,7 +68,7 @@ public class Assignment1 {
 
                 int item = 0;
                 for (item=0; item<inventory.length; item++) {
-                    if (inventory[item].getSerialNum == serialNum) break;
+                    if (inventory[item].getSerialNum() == serialNum) break;
                 }
 
                 printAppliance(inventory[item]);
@@ -140,13 +146,13 @@ public class Assignment1 {
 
     public static void findCheaperThan(double price, Appliance[] inventory) {
         for (int i=0; i<inventory.length; i++) {
-            if (inventory[i].getPrice() < price) System.out.println(inventory[i]);
+            if (inventory[i].getPrice() < price && inventory[i].getType() != null) System.out.println(inventory[i]);
         }
     }
 
     public static void findAppliancesBy(String brand, Appliance[] inventory) {
         for (int i=0; i<inventory.length; i++) {
-            if (inventory[i].getBrand.toLowerCase().equals(brand.toLowerCase())) System.out.println(inventory[i]);
+            if (inventory[i].getBrand().toLowerCase().equals(brand.toLowerCase())) System.out.println(inventory[i]);
         }
     }
 
