@@ -169,7 +169,7 @@ public class Assignment1 {
         return inventory;
     }
 
-    public static void printAppliance(Appliance a) {
+    public static void printAppliance(Appliance a) { // JUST USE THE TOSTRING METHOD
         System.out.println("\nAppliance Serial #: " + a.getSerialNum()
                         + "\nBrand: " + a.getBrand()
                         + "\nType: " + a.getType()
