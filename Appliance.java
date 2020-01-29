@@ -12,6 +12,11 @@ public class Appliance {
 
     /**
     * Default Appliance constructor
+    * 
+    * @param type a String variable for appliance type
+    * @param brand a String variable for brand name
+    * @param serialNum a long variable for appliance id number
+    * @param price a integer variable for appliance price
     */
     public Appliance(String type, String brand, long serialNum, double price) {
         setType(type);
@@ -29,7 +34,7 @@ public class Appliance {
 
     /**
     * Returns value of type
-    * @return
+    * @return 
     */
     public String getType() {
         return type;
@@ -61,7 +66,7 @@ public class Appliance {
 
     /**
     * Sets new value of type
-    * @param
+    * @param type a String variable
     */
     public void setType(String type) {
         type = type.toLowerCase();
@@ -73,7 +78,7 @@ public class Appliance {
 
     /**
     * Sets new value of brand
-    * @param
+    * @param brand a String variable
     */
     public void setBrand(String brand) {
         if (brand.length() > 0) this.brand = brand;
@@ -81,7 +86,7 @@ public class Appliance {
 
     /**
     * Sets new value of serialNum
-    * @param
+    * @param serialNum a long variable
     */
     public void setSerialNum(long serialNum) {
         this.serialNum = serialNum;
@@ -89,16 +94,27 @@ public class Appliance {
 
     /**
     * Sets new value of price
-    * @param
+    * @param price a value of type double
     */
     public void setPrice(double price) {
         if (price > 0) this.price = price;
     }
 
+    /**
+    * Equals method for appliance
+    *
+    *@param a a object of Appliance class
+    *@return boolean value
+    */	
     public boolean equals(Appliance a) {
         return (type == a.type && brand == a.brand && price == a.price);
     }
 
+    /**
+    * Finds number of appliances created
+    *
+    * @return 0
+    */	
     public int findNumberOfCreatedAppliances() {
         return 0;
     }
