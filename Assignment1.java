@@ -1,7 +1,7 @@
-//Eli Samuel (ID) and David Roper(40131739)
-//COMP 249
-//Assignment 1
-//January 31st 2020
+// Eli Samuel (40122277) and David Roper(40131739)
+// COMP 249
+// Assignment 1
+// January 31st 2020
 
 import java.util.Scanner;
 
@@ -202,7 +202,7 @@ public class Assignment1 {
 
         return inventory;
     }
-    
+
     /**
     *Prints out appliance info
     *

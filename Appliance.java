@@ -1,7 +1,7 @@
-//Eli Samuel (ID) and David Roper(40131739)
-//COMP 249
-//Assignment 1
-//January 31st 2020
+// Eli Samuel (40122277) and David Roper (40131739)
+// COMP 249
+// Assignment 1
+// January 31st 2020
 
 public class Appliance {
 
@@ -11,7 +11,6 @@ public class Appliance {
     private double price;
     private static long sNum = 1000000;
     private static long lastNum = 1000000;
-
 
     /**
     * Default Appliance constructor
