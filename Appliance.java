@@ -32,7 +32,10 @@ public class Appliance {
     * Default empty Appliance constructor
     */
     public Appliance() {
-
+        setType("unknown");
+        setBrand("unknown");
+        setSerialNum(serialNumGenerator());
+        setPrice("0");
     }
 
     /**
