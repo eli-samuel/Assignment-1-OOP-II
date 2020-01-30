@@ -120,12 +120,13 @@ public class Assignment1 {
         }
 
     }
+
     /**
     * Checks user input for password and compares it to actual password
     *
     * @param input a Scanner variable that takes user input
     * @param userPass a String vaiable for user password input
-    * @param PASSWORD a Final string variable for the real password user input is compared to 
+    * @param PASSWORD a Final string variable for the real password user input is compared to
     * @return boolean value if user input is equal to final password
     */
     public static boolean passwordChecker(Scanner input, String userPass, final String PASSWORD) {
@@ -139,12 +140,13 @@ public class Assignment1 {
 
         return userPass.equals(PASSWORD);
     }
+
     /**
     * Displays menu to the user, asks user for input
     *
     * @param input a Scanner variable for user input
     * @param option an integer variable
-    * @return option an integer variable which stores the user input 
+    * @return option an integer variable which stores the user input
     */
     public static int displayMenu(Scanner input, int option) {
         System.out.print("\nWhat do you want to do?\n\t1.\tEnter new appliances (password required)"
@@ -157,17 +159,19 @@ public class Assignment1 {
 
         return option;
     }
+
     /**
-    * Searches through all appliances and finds the appliance cheaper than the one given 
+    * Searches through all appliances and finds the appliance cheaper than the one given
     *
     * @param price an double value, the price of the appliance
-    * @param Appliance[] inventory an array of type appliance 
+    * @param Appliance[] inventory an array of type appliance
     */
     public static void findCheaperThan(double price, Appliance[] inventory) {
         for (int i=0; i<inventory.length; i++) {
             if (inventory[i].getPrice() < price && inventory[i].getType() != null) System.out.println(inventory[i]);
         }
     }
+
     /**
     * Searches through appliances and find the one of same brand name
     *
@@ -179,7 +183,8 @@ public class Assignment1 {
             if (inventory[i].getBrand().toLowerCase().equals(brand.toLowerCase())) System.out.println(inventory[i]);
         }
     }
-    /** 
+
+    /**
     * Adds new appliance(s) to an inventory
     *
     *@param Appliance [] inventory a Array of type appliance
@@ -197,6 +202,7 @@ public class Assignment1 {
 
         return inventory;
     }
+    
     /**
     *Prints out appliance info
     *

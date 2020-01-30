@@ -15,7 +15,7 @@ public class Appliance {
 
     /**
     * Default Appliance constructor
-    * 
+    *
     * @param type a String variable for appliance type
     * @param brand a String variable for brand name
     * @param serialNum a long variable for appliance id number
@@ -37,7 +37,7 @@ public class Appliance {
 
     /**
     * Returns value of type
-    * @return 
+    * @return
     */
     public String getType() {
         return type;
@@ -77,6 +77,7 @@ public class Appliance {
             || type.equals("dryer") || type.equals("freezer") || type.equals("stove")
             || type.equals("dishwasher") || type.equals("water heater") || type.equals("microwave"))
             this.type = type;
+        else this.type = "unknown";
     }
 
     /**
@@ -108,7 +109,7 @@ public class Appliance {
     *
     *@param a a object of Appliance class
     *@return boolean value
-    */	
+    */
     public boolean equals(Appliance a) {
         return (type == a.type && brand == a.brand && price == a.price);
     }
@@ -123,7 +124,7 @@ public class Appliance {
     * Finds number of appliances created
     *
     * @return 0
-    */	
+    */
     public int findNumberOfCreatedAppliances() {
         return 0;
 >>>>>>> 8cfc94f738c7cc1dcec8a03dd1b574ca84aa0ceb
