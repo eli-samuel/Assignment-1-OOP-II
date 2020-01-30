@@ -9,14 +9,17 @@ public class Appliance {
     private String brand;
     private long serialNum;
     private double price;
+    private static long sNum = 1000000;
+    private static long lastNum = 1000000;
+
 
     /**
     * Default Appliance constructor
     */
-    public Appliance(String type, String brand, long serialNum, double price) {
+    public Appliance(String type, String brand, double price) {
         setType(type);
         setBrand(brand);
-        setSerialNum(serialNum);
+        setSerialNum(serialNumGenerator());
         setPrice(price);
     }
 
@@ -83,7 +86,7 @@ public class Appliance {
     * Sets new value of serialNum
     * @param
     */
-    public void setSerialNum(long serialNum) {
+    private void setSerialNum(long serialNum) { // set to private so that it can't be changed from outside this class
         this.serialNum = serialNum;
     }
 
@@ -99,8 +102,10 @@ public class Appliance {
         return (type == a.type && brand == a.brand && price == a.price);
     }
 
-    public int findNumberOfCreatedAppliances() {
-        return 0;
+    public static long findNumberOfCreatedAppliances() {
+        long diff = sNum - lastNum;
+        lastNum = sNum;
+        return diff;
     }
 
 	/**
@@ -109,7 +114,11 @@ public class Appliance {
 	*/
 	@Override
 	public String toString() {
-		return "Appliance [type=" + type + ", brand=" + brand + ", serialNum=" + serialNum + ", price=" + price + "]";
+		return "\nType: " + type + "\nBrand: " + brand + "\nAppliance Serial #: " + serialNum + "\nPrice: " + price;
 	}
+
+    private static long serialNumGenerator() {
+        return sNum++;
+    }
 
 }

@@ -22,8 +22,10 @@ public class Assignment1 {
         System.out.print("Enter the max appliances: ");
         maxAppliances = input.nextInt();
         System.out.println();
-        
+
         inventory = new Appliance[maxAppliances];
+
+        System.out.println(Appliance.findNumberOfCreatedAppliances());
 
         do {
             option = displayMenu(input, option);
@@ -50,7 +52,6 @@ public class Assignment1 {
                     System.out.println("\nThere is not enough room in the inventory (" + inventory.length + " place(s) remain)."
                     + " Adding " + inventory.length + " appliances.");
                     numAppliances = inventory.length;
-                    System.out.println(numAppliances);
                 }
 
                 inventory = applianceAdder(inventory, numAppliances, input);
@@ -71,31 +72,31 @@ public class Assignment1 {
                     if (inventory[item].getSerialNum() == serialNum) break;
                 }
 
-                printAppliance(inventory[item]);
+                System.out.println(inventory[item]);
 
                 int choice = 0;
 
                 do {
                     do {
                         System.out.print("\nWhat information would you like to change?"
-                                        + "\n\t1. Brand\n\t2. Type\n\t3. Price\n\t4. Quit\nEnter your choice: ");
+                                        + "\n\t1. Type\n\t2. Brand\n\t3. Price\n\t4. Quit\nEnter your choice: ");
                         choice = input.nextInt();
                     } while (choice > 4 && choice < 1);
 
                     if (choice == 1) {
-                        System.out.print("Enter new brand: ");
-                        inventory[item].setBrand(input.next());
-                        printAppliance(inventory[item]);
-                    }
-                    else if (choice == 2) {
                         System.out.print("Enter new type: ");
                         inventory[item].setType(input.next());
-                        printAppliance(inventory[item]);
+                        System.out.println(inventory[item]);
+                    }
+                    else if (choice == 2) {
+                        System.out.print("Enter new brand: ");
+                        inventory[item].setBrand(input.next());
+                        System.out.println(inventory[item]);
                     }
                     else if (choice == 3) {
                         System.out.print("Enter new price: ");
                         inventory[item].setPrice(input.nextDouble());
-                        printAppliance(inventory[item]);
+                        System.out.println(inventory[item]);
                     }
                 } while (choice != 4);
 
@@ -113,7 +114,7 @@ public class Assignment1 {
                 findCheaperThan(price, inventory);
             }
             else { // option == 5
-                System.out.println("\nThanks for using the program!\n");
+                System.out.println("Thanks for using the program!");
                 break;
             }
         }
@@ -158,18 +159,10 @@ public class Assignment1 {
 
     public static Appliance[] applianceAdder(Appliance[] inventory, int numAppliances, Scanner input) {
         for (int i=0; i<numAppliances; i++) {
-            // System.out.print("Enter type: ");
-            // String type = input.nextLine();
-            // System.out.print("Enter brand: ");
-            // String brand = input.nextLine();
-            // System.out.print("Enter serial number: ");
-            // long serialNum = input.nextLong();
-            // System.out.print("Enter price: ");
-            // double price = input.nextDouble();
-            System.out.println("Enter type, brand, serial number, and price (separated by a newline).");
+            System.out.println("Enter type, brand, and price (separated by a newline).");
             String extra = input.nextLine();
-            inventory[i] = new Appliance(input.nextLine(), input.nextLine(), input.nextLong(), input.nextDouble());
-            System.out.println("Added: " + inventory[i]);
+            inventory[i] = new Appliance(input.nextLine(), input.nextLine(), input.nextDouble());
+            System.out.println("\nAdded: " + inventory[i]);
         }
 
         return inventory;
