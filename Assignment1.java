@@ -1,41 +1,68 @@
-// Eli Samuel (40122277) and David Roper(40131739)
+// ------------------------------------------------
 // COMP 249
 // Assignment 1
+// Question: Part II
 // January 31st 2020
+// Written by: Eli Samuel (40122277) and David Roper (40131739)
+// ------------------------------------------------
+
+/**
+* Eli Samuel (40122277) and David Roper (40131739)
+* COMP 249
+* Assignment 1
+* January 31st 2020
+*/
+
+/* This program allows a user to keep an create and edit an inventory of appliances. The user can choose
+ * what appliances they create (under set types), brand, and price, and assigns the appliance a serial
+ * number based on what number appliance that was created. The user can edit the appliance attributes
+ * (except for serial number) as many times as they would like, as well as show a listing of all the appliances
+ * that are under the same brand or under a certain price. The user can also end the program when they would
+ * like by choosing to do so in the main menu */
 
 import java.util.Scanner;
 
 public class Assignment1 {
 
     public static void main(String[] args) {
-        //initializing variables
+        // initializing variables
         Scanner input = new Scanner(System.in);
         int maxAppliances = 0;
         int option = 0;
         Appliance[] inventory;
-        //setting Password and variable for users password input
+        boolean gotPassword = false;
+        boolean menu = true;
+
+        // setting password and variable for users password input
         final String PASSWORD = "c249";
         String userPass = "";
 
-        System.out.println("\nWelcome to the appliance tracker!\n");
+        //welcome message
+        System.out.println("\nWelcome to the appliance tracker by Eli Samuel (40122277) and David Roper (40131739)!\n");
 
+        //ask u
         System.out.print("Enter the max appliances: ");
         maxAppliances = input.nextInt();
         System.out.println();
 
         inventory = new Appliance[maxAppliances];
 
-        System.out.println(Appliance.findNumberOfCreatedAppliances());
-
-        do {
-            option = displayMenu(input, option);
-        } while (option < 1 || option > 5);
-
         int counter = 0;
         while (true) {
+            // display the menu if needed
+            if (menu) {
+                do {
+                    option = displayMenu(input, option);
+                } while (option < 1 || option > 5);
+                gotPassword = false; // resets
+            }
+
+            // if the user chooses 1, allow them to add new appliances to the inventory
             if (option == 1) {
-                if (!passwordChecker(input, userPass, PASSWORD) && counter<4) {
+                // check the password 12 times
+                if (!passwordChecker(input, userPass, PASSWORD) && counter < 4) {
                     counter++;
+                    // if the user failed 12 times, exit the program
                     if (counter == 4) {
                         System.out.println("\nProgram detected suspicious activities and will terminate immediately!");
                         System.exit(0);
@@ -44,22 +71,27 @@ public class Assignment1 {
                     continue;
                 }
 
-                counter=0;
+                counter=0; // resetting number of attempts
+
                 System.out.print("Enter number of appliances to add: ");
                 int numAppliances = input.nextInt();
 
-                if (numAppliances > inventory.length) {
-                    System.out.println("\nThere is not enough room in the inventory (" + inventory.length + " place(s) remain)."
-                    + " Adding " + inventory.length + " appliances.");
-                    numAppliances = inventory.length;
+                // if the user input a number greater than the number of spaces left
+                if (numAppliances > spaceLeft(inventory)) {
+                    System.out.println("\nThere is not enough room in the inventory (" + spaceLeft(inventory) + " place(s) remain)."
+                    + " Adding " + spaceLeft(inventory) + " appliance(s).");
+                    numAppliances = spaceLeft(inventory);
                 }
 
+                // adds the appliances to the inventory
                 inventory = applianceAdder(inventory, numAppliances, input);
 
-                option = displayMenu(input, option);
+                menu = true;
             }
+            // if the user chooses 2, allow them to edit appliance settings to the inventory
             else if (option == 2) {
-                if (!passwordChecker(input, userPass, PASSWORD)) {
+                // checking the password
+                if (!gotPassword && !passwordChecker(input, userPass, PASSWORD)) {
                     option = displayMenu(input, option);
                     continue;
                 }
@@ -67,11 +99,38 @@ public class Assignment1 {
                 System.out.print("Input the serial number of the item you would like to change: ");
                 long serialNum = input.nextLong();
 
+                // makes sure the serial number exists
                 int item = 0;
-                for (item=0; item<inventory.length; item++) {
-                    if (inventory[item].getSerialNum() == serialNum) break;
+                boolean hasSerial = false;
+                for (item=0; item<inventory.length-spaceLeft(inventory); item++) {
+                    if (inventory[item].getSerialNum() == serialNum) {
+                        hasSerial = true;
+                        break;
+                    }
                 }
 
+                // if the serial number does not exist
+                int reply = 0;
+                if (!hasSerial) {
+                    do {
+                        System.out.println("\nSerial number does not exist or bad input! Would you like to:\n\t1. Re-enter another serial number\n\t2. Return to the main menu");
+                        reply = input.nextInt();
+
+                        if (reply == 1) {
+                            gotPassword = true;
+                            menu = false;
+                        }
+                        else if (reply == 2) {
+                            System.out.println("Returning to menu");
+                            menu = true;
+                        }
+
+                    } while (reply != 1 && reply != 2);
+
+                    continue;
+                }
+
+                // display appliance information
                 System.out.println(inventory[item]);
 
                 int choice = 0;
@@ -79,18 +138,20 @@ public class Assignment1 {
                 do {
                     do {
                         System.out.print("\nWhat information would you like to change?"
-                                        + "\n\t1. Type\n\t2. Brand\n\t3. Price\n\t4. Quit\nEnter your choice: ");
+                        + "\n\t1. Type\n\t2. Brand\n\t3. Price\n\t4. Quit\nEnter your choice: ");
                         choice = input.nextInt();
                     } while (choice > 4 && choice < 1);
 
                     if (choice == 1) {
+                        input.nextLine();
                         System.out.print("Enter new type: ");
-                        inventory[item].setType(input.next());
+                        inventory[item].setType(input.nextLine());
                         System.out.println(inventory[item]);
                     }
                     else if (choice == 2) {
+                        input.nextLine();
                         System.out.print("Enter new brand: ");
-                        inventory[item].setBrand(input.next());
+                        inventory[item].setBrand(input.nextLine());
                         System.out.println(inventory[item]);
                     }
                     else if (choice == 3) {
@@ -100,25 +161,25 @@ public class Assignment1 {
                     }
                 } while (choice != 4);
 
-                break;
+                gotPassword = false; // requires password on next attempt
+                menu = true; // go back to the menu
             }
+            // if the user chooses 3, display all the appliances with the same brand name
             else if (option == 3) {
                 System.out.print("Enter a brand name: ");
-                String brand = input.next();
-                findAppliancesBy(brand, inventory);
+                findAppliancesBy(input.next(), inventory);
             }
+            // if the user chooses 4, display all the appliances under the specified type
             else if (option == 4) {
                 System.out.print("Enter a price: ");
-                double price = input.nextDouble();
-
-                findCheaperThan(price, inventory);
+                findCheaperThan(input.nextDouble(), inventory);
             }
-            else { // option == 5
+            // if the user chooses 5, end the program
+            else {
                 System.out.println("Thanks for using the program!");
                 break;
             }
         }
-
     }
 
     /**
@@ -168,7 +229,7 @@ public class Assignment1 {
     */
     public static void findCheaperThan(double price, Appliance[] inventory) {
         for (int i=0; i<inventory.length; i++) {
-            if (inventory[i].getPrice() < price && inventory[i].getType() != null) System.out.println(inventory[i]);
+            if (inventory[i] != null && inventory[i].getPrice() < price) System.out.println(inventory[i]);
         }
     }
 
@@ -180,7 +241,7 @@ public class Assignment1 {
     */
     public static void findAppliancesBy(String brand, Appliance[] inventory) {
         for (int i=0; i<inventory.length; i++) {
-            if (inventory[i].getBrand().toLowerCase().equals(brand.toLowerCase())) System.out.println(inventory[i]);
+            if (inventory[i] != null && inventory[i].getBrand().toLowerCase().equals(brand.toLowerCase())) System.out.println(inventory[i]);
         }
     }
 
@@ -193,8 +254,9 @@ public class Assignment1 {
     *@return inventory an Array of type Appliance made by user
     */
     public static Appliance[] applianceAdder(Appliance[] inventory, int numAppliances, Scanner input) {
-        for (int i=0; i<numAppliances; i++) {
-            System.out.println("Enter type, brand, and price (separated by a newline).");
+        int a = Appliance.findNumberOfCreatedAppliances();
+        for (int i=a; i<a+numAppliances; i++) {
+            System.out.println("\nEnter type, brand, and price (separated by a newline).");
             String extra = input.nextLine();
             inventory[i] = new Appliance(input.nextLine(), input.nextLine(), input.nextDouble());
             System.out.println("\nAdded: " + inventory[i]);
@@ -210,8 +272,21 @@ public class Assignment1 {
     */
     public static void printAppliance(Appliance a) { // JUST USE THE TOSTRING METHOD
         System.out.println("\nAppliance Serial #: " + a.getSerialNum()
-                        + "\nBrand: " + a.getBrand()
-                        + "\nType: " + a.getType()
-                        + "\nPrice: " + a.getPrice());
+        + "\nBrand: " + a.getBrand()
+        + "\nType: " + a.getType()
+        + "\nPrice: " + a.getPrice());
+    }
+    /**
+    *Checks space left in store for new appliances
+    *
+    *@param inventory Array of type Appliance
+    *@return spaceLeft an integer value of spaces left
+    */
+    public static int spaceLeft(Appliance[] inventory) {
+        int spaceLeft = 0;
+        for (int i=0; i<inventory.length; i++) {
+            if (inventory[i] == null) spaceLeft++;
+        }
+        return spaceLeft;
     }
 }
